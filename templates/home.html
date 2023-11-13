@@ -1,0 +1,66 @@
+{% extends 'Demo/base.html' %}
+{% load static %}
+
+{% block extrastyles %}
+    <style>
+        body {
+            font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+        }
+
+        a {
+            color: #00B7FF;
+        }
+
+        ul {
+            list-style-type: none; /* Quita el marcador de lista */
+            padding: 0; /* Elimina el espacio de relleno predeterminado */
+            margin: 0; /* Elimina el margen predeterminado */
+        }
+
+        h1 {
+            color: white;
+        }
+
+        hr {
+            height: 0px!important;
+            background-color: #ccc;
+            opacity: 1;
+        }
+
+        p {
+            color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<section class="container" >
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <h1>Prueba pasarela</h1>
+        <hr>
+        <div class="row">
+          <div class="col-md-6">
+            <form id="form-pop-in" action="/formtoken" method="POST">
+              <input type="hidden" name="mode" value="pop-in">
+              <button class="btn btn-primary" type="submit">Enviar Pop-in</button>
+            </form>
+          </div>
+          <div class="col-md-6">
+            <form id="form-inc" action="/formtoken" method="POST">
+              <input type="hidden" name="mode" value="incrustado">
+              <button class="btn btn-primary" type="submit">Enviar Incrustado</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block extrajs %}
+    <script>
+    </script>
+{% endblock %}
