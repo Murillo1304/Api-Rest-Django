@@ -12,6 +12,7 @@
     <!--    Document Title-->
     <!-- ===============================================-->
     <title> Demo Node JS </title>
+
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 
     <!-- ===============================================-->
@@ -46,10 +47,35 @@
     <!--    Stylesheets-->
     <!-- ===============================================-->
     {% block extrastyles %}{% endblock %}
+     <style>
+        body {
+            font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+        }
 
-    <!-- ===============================================-->
-    <!--    Extra-->
-    <!-- ===============================================-->
+        a {
+            color: #00B7FF;
+        }
+
+        ul {
+            list-style-type: none; /* Quita el marcador de lista */
+            padding: 0; /* Elimina el espacio de relleno predeterminado */
+            margin: 0; /* Elimina el margen predeterminado */
+        }
+
+        h1 {
+            color: white;
+        }
+
+        hr {
+            height: 0px!important;
+            background-color: #ccc;
+            opacity: 1;
+        }
+
+        p {
+            color: white;
+        }
+    </style>
     {% block extrahead %}{% endblock %}
 </head>
 
