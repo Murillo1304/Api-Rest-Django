@@ -1,0 +1,12 @@
+Visual Code:
+Tener python instalado
+Instalar extension Python Visual Code
+Ctrl + Shift + P -> Python Select Interpreter (Seleccionar venv)
+Abrir Terminal
+-Si sale error:
+Abrir Poweshell como administrador
+Get-ExecutionPolicy
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+Ejecutar python manage.py runserver en Visual Code
+Abrir puerto 8000

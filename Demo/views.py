@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 import base64
 import json
 import requests
+import hashlib
+import hmac
 from Keys.keys import keys
 # Create your views here.
 def home(request):
@@ -38,7 +41,22 @@ def formToken(request):
 
     if response_data['status'] == 'SUCCESS':
         token = response_data['answer']['formToken']
-
         return render(request, 'Demo/formtoken.html', {'mode': mode, 'token': token, 'publickey': publickey})
     else:
         print(response.status_code)
+
+@csrf_exempt
+def paidResult(request):
+    answer = request.POST.get('kr-answer')
+    hash = request.POST.get('kr-hash')
+
+    hash_object = hmac.new(keys['HMACSHA256'].encode('utf-8'), answer.encode('utf-8'), hashlib.sha256)
+    answerHash = hash_object.hexdigest()
+
+    answer_json = json.loads(answer)
+    orderDetails = answer_json.get('orderDetails')
+
+    if hash == answerHash:
+        return render(request, 'Demo/result.html', {'response': answer_json.get('orderStatus'), 'orderTotalAmount': orderDetails.get('orderTotalAmount'), 'orderId': orderDetails.get('orderId')})
+    else:
+        print("error")

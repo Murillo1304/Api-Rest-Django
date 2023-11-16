@@ -9,11 +9,10 @@
   <!-- STEP :
   1 : load the JS librairy
   2 : required public key and the JS parameters as url sucess -->
-
       <script type="text/javascript"
               src="https://static.micuentaweb.pe/static/js/krypton-client/V4.0/stable/kr-payment-form.min.js"
               kr-public-key="{{ publickey }}"
-              kr-post-url-success="">
+              kr-post-url-success="{% url 'result' %}">
       </script>
 
       <!-- 3 : theme classic should be loaded in the HEAD section   -->
@@ -32,22 +31,23 @@
         <h1>Formulario de pago</h1>
         <hr>
         <div id="micuentawebstd_rest_wrapper">
-          {% if mode == 'pop-in' %}
-              <div class="kr-embedded" kr-popin kr-form-token="{{ token }}"></div>
-          {% else %}
-            <div id="payment">
-              <ul>
-                  <li class="wc_payment_method payment_method_micuentawebstd">
-                      <div>
-                          <div class="kr-embedded" kr-form-token="{{ token }}"></div>
-                      </div>
-                  </li>
-              </ul>
-          </div>
-          {% endif %}
+            {% if mode == 'pop-in' %}
+                  <div class="kr-embedded" kr-popin kr-form-token="{{ token }}"></div>
+            {% else %}
+                <div id="payment">
+                  <ul>
+                      <li class="wc_payment_method payment_method_micuentawebstd">
+                          <div>
+                              <div class="kr-embedded" kr-form-token="{{ token }}"></div>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+            {% endif %}
         </div>
       </div>
-      <div class="col-md-3"></div>
+      <div class="col-md-3">
+      </div>
     </div>
   </section>
 {% endblock %}
