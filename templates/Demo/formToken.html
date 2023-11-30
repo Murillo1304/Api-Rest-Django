@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
+    {% if mode == 'pop-in' %}
+        <link rel="stylesheet" href="{% static 'css/style-pop-in.css' %}" />
+    {% else %}
+        <link rel="stylesheet" href="{% static 'css/style-incrustado.css' %}" />
+    {% endif %}
   <!-- STEP :
   1 : load the JS librairy
   2 : required public key and the JS parameters as url sucess -->

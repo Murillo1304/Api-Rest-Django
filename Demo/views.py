@@ -5,6 +5,7 @@ import json
 import requests
 import hashlib
 import hmac
+from django.http import HttpResponse
 from Keys.keys import keys
 # Create your views here.
 def home(request):
@@ -43,7 +44,8 @@ def formToken(request):
         token = response_data['answer']['formToken']
         return render(request, 'Demo/formtoken.html', {'mode': mode, 'token': token, 'publickey': publickey})
     else:
-        print(response.status_code)
+        serialized_data = json.dumps(response_data, indent=4)
+        return render(request, 'Demo/error.html', {'serialized_data': serialized_data})
 
 @csrf_exempt
 def paidResult(request):
@@ -59,4 +61,22 @@ def paidResult(request):
     if hash == answerHash:
         return render(request, 'Demo/result.html', {'response': answer_json.get('orderStatus'), 'orderTotalAmount': orderDetails.get('orderTotalAmount'), 'orderId': orderDetails.get('orderId')})
     else:
-        print("error")
+        return render(request, 'Demo/result.html', {'response': 'Error en el pago'})
+
+@csrf_exempt
+def ipn(request):
+    answer = request.POST.get('kr-answer')
+    hash = request.POST.get('kr-hash')
+
+    hash_object = hmac.new(keys['password'].encode('utf-8'), answer.encode('utf-8'), hashlib.sha256)
+    answerHash = hash_object.hexdigest()
+
+    answer_json = json.loads(answer)
+    print('IPN')
+    print(answer_json)
+    print('Codigo Hash: ' + answerHash)
+
+    if hash == answerHash:
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=500)
